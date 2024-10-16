@@ -12,7 +12,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item @(ViewData["Menu"]?.ToString() == "Home" ? "active" : "")">
         <a class="nav-link" asp-controller="Home" asp-action="Index">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -23,8 +23,15 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Jobs
     </div>
+
+    <!-- Nav Item - Applicants -->
+    <li class="nav-item @(ViewData["Menu"]?.ToString() == "Applicants" ? "active" : "")">
+        <a class="nav-link" asp-controller="Applicant" asp-action="Index">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Applicants</span></a>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
