@@ -16,27 +16,27 @@ namespace JobSeeker.Repositories
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public UserModel? GetUserByUsername(string username)
+        public User? GetUserByUsername(string username)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            return db.Query<UserModel>("SELECT * FROM Users WHERE Username = @Username", new { Username = username }).FirstOrDefault();
+            return db.Query<User>("SELECT * FROM Users WHERE Username = @Username", new { Username = username }).FirstOrDefault();
         }
 
-        public void RegisterUser(UserModel user)
+        public void RegisterUser(User user)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
             var sql = "INSERT INTO Users (Username, Name, Password, Email) VALUES (@Username, @Name, @Password, @Email)";
             db.Execute(sql, user);
         }
 
-        public UserModel? AuthenticateUser(string username, string password)
+        public User? AuthenticateUser(string username, string password)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            return db.Query<UserModel>($"SELECT * FROM Users WHERE Username = '{username}' AND Password = '{password}'",
+            return db.Query<User>($"SELECT * FROM Users WHERE Username = '{username}' AND Password = '{password}'",
                 new { Username = username, Password = password }).FirstOrDefault();
         }
 
-        public async Task<bool> UpdateUserAsync(UserModel user)
+        public async Task<bool> UpdateUserAsync(User user)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
             var sql = "UPDATE Users SET Username = @Username, Email = @Email, Name = @Name WHERE Id = @Id";

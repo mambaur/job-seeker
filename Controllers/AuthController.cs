@@ -46,7 +46,7 @@ namespace JobSeeker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(UserModel user)
+        public ActionResult Register(User user)
         {
             var existingUser = authRepository.GetUserByUsername(user.Username ?? "");
             if (existingUser != null)
@@ -63,6 +63,12 @@ namespace JobSeeker.Controllers
 
         [HttpGet]
         public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
         {
             return View();
         }

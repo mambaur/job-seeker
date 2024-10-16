@@ -35,7 +35,7 @@ namespace JobSeeker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(UserModel user)
+        public async Task<IActionResult> Update(User user)
         {
             if (ModelState.IsValid)
             {
