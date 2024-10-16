@@ -23,5 +23,9 @@ namespace JobSeeker.Models
 
         public DateTime? DeletedAt { get; set; }
 
+        public User? User { get; set; }
+
+        public Job? Job { get; set; }
+
     }
 }

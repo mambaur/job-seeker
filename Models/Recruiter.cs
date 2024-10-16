@@ -18,5 +18,7 @@ namespace JobSeeker.Models
 
         [Column(TypeName = "TEXT")]
         public string? ImageUrl { get; set; }
+
+        public Organization? Organization{ get; set; }
     }
 }

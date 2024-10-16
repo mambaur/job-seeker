@@ -13,5 +13,7 @@ namespace JobSeeker.Models
 
         [Column(TypeName = "TEXT")]
         public string? Description { get; set; }
+
+        public ICollection<Job>? Jobs{ get; set; }
     }
 }

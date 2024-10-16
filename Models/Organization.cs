@@ -16,5 +16,9 @@ namespace JobSeeker.Models
 
         [Column(TypeName = "TEXT")]
         public string? ImageUrl { get; set; }
+
+        public ICollection<Recruiter>? Recruiters { get; set; }
+
+        public ICollection<Job>? Jobs { get; set; }
     }
 }

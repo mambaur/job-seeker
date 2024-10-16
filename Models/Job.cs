@@ -40,5 +40,15 @@ namespace JobSeeker.Models
         public DateTime? UpdatedAt { get; set; }
 
         public DateTime? DeletedAt { get; set; }
+
+        public JobPosition? JobPosition { get; set; }
+
+        public JobCategory? JobCategory { get; set; }
+
+        public Recruiter? Recruiter { get; set; }
+
+        public Organization? Organization { get; set; }
+
+        public ICollection<Applicant>? Applicants { get; set; }
     }
 }

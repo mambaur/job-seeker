@@ -7,6 +7,7 @@ namespace JobSeeker.Models
     {
         public int Id { get; set; }
 
+        [ForeignKey("UserRole")]
         public int? UserRoleId { get; set; }
 
         [StringLength(191)]
@@ -32,5 +33,7 @@ namespace JobSeeker.Models
         public DateTime? DeletedAt { get; set; }
 
         public ICollection<Applicant>? Applicants { get; set; }
+
+        public UserRole? UserRole { get; set; }
     }
 }
