@@ -24,6 +24,9 @@ namespace JobSeeker.Models
         [Column(TypeName = "TEXT")]
         public string? Password { get; set; }
 
+        [Column(TypeName = "TEXT")]
+        public string? ImageUrl { get; set; }
+
         public DateTime? EmailVerifiedAt { get; set; }
 
         public DateTime? CreatedAt { get; set; }

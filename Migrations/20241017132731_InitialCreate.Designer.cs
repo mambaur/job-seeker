@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSeeker.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241016155010_InitialCreate")]
+    [Migration("20241017132731_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -60,7 +60,7 @@ namespace JobSeeker.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Applicant");
+                    b.ToTable("Applicants");
                 });
 
             modelBuilder.Entity("JobSeeker.Models.Job", b =>
@@ -121,9 +121,7 @@ namespace JobSeeker.Migrations
 
                     b.HasIndex("OrganizationId");
 
-                    b.HasIndex("RecruiterId");
-
-                    b.ToTable("Job");
+                    b.ToTable("Jobs");
                 });
 
             modelBuilder.Entity("JobSeeker.Models.JobCategory", b =>
@@ -143,7 +141,7 @@ namespace JobSeeker.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobCategory");
+                    b.ToTable("JobCategories");
                 });
 
             modelBuilder.Entity("JobSeeker.Models.JobPosition", b =>
@@ -186,10 +184,41 @@ namespace JobSeeker.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Organization");
+                    b.ToTable("Organizations");
                 });
 
-            modelBuilder.Entity("JobSeeker.Models.Recruiter", b =>
+            modelBuilder.Entity("JobSeeker.Models.SeekerProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("About")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Contact")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Education")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Headline")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SeekerProfiles");
+                });
+
+            modelBuilder.Entity("JobSeeker.Models.SeekerProfileExperience", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,21 +229,36 @@ namespace JobSeeker.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool?>("IsCurrenct")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("LocationType")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Organization")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OrganizationAddress")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(191)
-                        .HasColumnType("varchar(191)");
-
-                    b.Property<int?>("OrganizationId")
+                    b.Property<int?>("SeekerProfileId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Skills")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("Recruiter");
+                    b.ToTable("SeekerProfileExperiences");
                 });
 
             modelBuilder.Entity("JobSeeker.Models.User", b =>
@@ -309,24 +353,9 @@ namespace JobSeeker.Migrations
                         .WithMany("Jobs")
                         .HasForeignKey("OrganizationId");
 
-                    b.HasOne("JobSeeker.Models.Recruiter", "Recruiter")
-                        .WithMany()
-                        .HasForeignKey("RecruiterId");
-
                     b.Navigation("JobCategory");
 
                     b.Navigation("JobPosition");
-
-                    b.Navigation("Organization");
-
-                    b.Navigation("Recruiter");
-                });
-
-            modelBuilder.Entity("JobSeeker.Models.Recruiter", b =>
-                {
-                    b.HasOne("JobSeeker.Models.Organization", "Organization")
-                        .WithMany("Recruiters")
-                        .HasForeignKey("OrganizationId");
 
                     b.Navigation("Organization");
                 });
@@ -358,8 +387,6 @@ namespace JobSeeker.Migrations
             modelBuilder.Entity("JobSeeker.Models.Organization", b =>
                 {
                     b.Navigation("Jobs");
-
-                    b.Navigation("Recruiters");
                 });
 
             modelBuilder.Entity("JobSeeker.Models.User", b =>

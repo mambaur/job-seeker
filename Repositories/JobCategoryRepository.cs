@@ -23,20 +23,20 @@ namespace JobSeeker.Repositories
         public IEnumerable<JobCategory> GetAllJobCategories()
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            return db.Query<JobCategory>("SELECT * FROM JobCategory");
+            return db.Query<JobCategory>("SELECT * FROM JobCategories");
         }
 
         public void Store(JobCategory job)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            var sql = "INSERT INTO JobCategory (Name, Description) VALUES (@Name, @Description)";
+            var sql = "INSERT INTO JobCategories (Name, Description) VALUES (@Name, @Description)";
             db.Execute(sql, job);
         }
 
         public bool Update(JobCategory JobCategory)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            var sql = "UPDATE JobCategory SET Name = @Name, Description = @Description WHERE Id = @Id";
+            var sql = "UPDATE JobCategories SET Name = @Name, Description = @Description WHERE Id = @Id";
             var result = db.Execute(sql, JobCategory);
             return result > 0;
         }
@@ -44,13 +44,13 @@ namespace JobSeeker.Repositories
         public JobCategory? GetJobCategoryById(int Id)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            return db.Query<JobCategory>($"SELECT * FROM JobCategory WHERE Id = '{Id}'").FirstOrDefault();
+            return db.Query<JobCategory>($"SELECT * FROM JobCategories WHERE Id = '{Id}'").FirstOrDefault();
         }
 
         public bool DeleteJobCategoryById(int JobCategoryId)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            int rowsAffected = db.Execute("DELETE FROM JobCategory WHERE Id = @Id", new { Id = JobCategoryId });
+            int rowsAffected = db.Execute("DELETE FROM JobCategories WHERE Id = @Id", new { Id = JobCategoryId });
             return rowsAffected > 0;
         }
     }

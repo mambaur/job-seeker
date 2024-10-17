@@ -45,8 +45,6 @@ namespace JobSeeker.Models
 
         public JobCategory? JobCategory { get; set; }
 
-        public Recruiter? Recruiter { get; set; }
-
         public Organization? Organization { get; set; }
 
         public ICollection<Applicant>? Applicants { get; set; }

@@ -11,6 +11,19 @@ namespace JobSeeker.Data
 
         public DbSet<UserRole> UserRoles { get; set; }
 
+        public DbSet<Job> Jobs { get; set; }
+
+        public DbSet<JobCategory> JobCategories { get; set; }
+
+        public DbSet<SeekerProfile> SeekerProfiles { get; set; }
+
+        public DbSet<Organization> Organizations { get; set; }
+
+        public DbSet<SeekerProfileExperience> SeekerProfileExperiences { get; set; }
+
+        public DbSet<Applicant> Applicants { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

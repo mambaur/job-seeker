@@ -16,7 +16,7 @@ namespace JobSeeker.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "JobCategory",
+                name: "JobCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -28,7 +28,7 @@ namespace JobSeeker.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobCategory", x => x.Id);
+                    table.PrimaryKey("PK_JobCategories", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -50,7 +50,7 @@ namespace JobSeeker.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Organization",
+                name: "Organizations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -64,7 +64,61 @@ namespace JobSeeker.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Organization", x => x.Id);
+                    table.PrimaryKey("PK_Organizations", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SeekerProfileExperiences",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SeekerProfileId = table.Column<int>(type: "int", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IsCurrenct = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Organization = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OrganizationAddress = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LocationType = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Skills = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeekerProfileExperiences", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SeekerProfiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Address = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Education = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Contact = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Headline = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Position = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    About = table.Column<string>(type: "TEXT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeekerProfiles", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -84,26 +138,47 @@ namespace JobSeeker.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Recruiter",
+                name: "Jobs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    JobCategoryId = table.Column<int>(type: "int", nullable: true),
+                    JobPositionId = table.Column<int>(type: "int", nullable: true),
+                    RecruiterId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "varchar(191)", maxLength: 191, nullable: true)
+                    Title = table.Column<string>(type: "TEXT", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    PublishedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Status = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Recruiter", x => x.Id);
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recruiter_Organization_OrganizationId",
+                        name: "FK_Jobs_JobCategories_JobCategoryId",
+                        column: x => x.JobCategoryId,
+                        principalTable: "JobCategories",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Jobs_JobPositions_JobPositionId",
+                        column: x => x.JobPositionId,
+                        principalTable: "JobPositions",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Jobs_Organizations_OrganizationId",
                         column: x => x.OrganizationId,
-                        principalTable: "Organization",
+                        principalTable: "Organizations",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -140,58 +215,7 @@ namespace JobSeeker.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Job",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    JobCategoryId = table.Column<int>(type: "int", nullable: true),
-                    JobPositionId = table.Column<int>(type: "int", nullable: true),
-                    RecruiterId = table.Column<int>(type: "int", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PublishedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Status = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Job", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Job_JobCategory_JobCategoryId",
-                        column: x => x.JobCategoryId,
-                        principalTable: "JobCategory",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Job_JobPositions_JobPositionId",
-                        column: x => x.JobPositionId,
-                        principalTable: "JobPositions",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Job_Organization_OrganizationId",
-                        column: x => x.OrganizationId,
-                        principalTable: "Organization",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Job_Recruiter_RecruiterId",
-                        column: x => x.RecruiterId,
-                        principalTable: "Recruiter",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Applicant",
+                name: "Applicants",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -207,14 +231,14 @@ namespace JobSeeker.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Applicant", x => x.Id);
+                    table.PrimaryKey("PK_Applicants", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Applicant_Job_JobId",
+                        name: "FK_Applicants_Jobs_JobId",
                         column: x => x.JobId,
-                        principalTable: "Job",
+                        principalTable: "Jobs",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Applicant_Users_UserId",
+                        name: "FK_Applicants_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -222,38 +246,28 @@ namespace JobSeeker.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applicant_JobId",
-                table: "Applicant",
+                name: "IX_Applicants_JobId",
+                table: "Applicants",
                 column: "JobId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applicant_UserId",
-                table: "Applicant",
+                name: "IX_Applicants_UserId",
+                table: "Applicants",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Job_JobCategoryId",
-                table: "Job",
+                name: "IX_Jobs_JobCategoryId",
+                table: "Jobs",
                 column: "JobCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Job_JobPositionId",
-                table: "Job",
+                name: "IX_Jobs_JobPositionId",
+                table: "Jobs",
                 column: "JobPositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Job_OrganizationId",
-                table: "Job",
-                column: "OrganizationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Job_RecruiterId",
-                table: "Job",
-                column: "RecruiterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Recruiter_OrganizationId",
-                table: "Recruiter",
+                name: "IX_Jobs_OrganizationId",
+                table: "Jobs",
                 column: "OrganizationId");
 
             migrationBuilder.CreateIndex(
@@ -266,28 +280,31 @@ namespace JobSeeker.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Applicant");
+                name: "Applicants");
 
             migrationBuilder.DropTable(
-                name: "Job");
+                name: "SeekerProfileExperiences");
+
+            migrationBuilder.DropTable(
+                name: "SeekerProfiles");
+
+            migrationBuilder.DropTable(
+                name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "JobCategory");
+                name: "JobCategories");
 
             migrationBuilder.DropTable(
                 name: "JobPositions");
 
             migrationBuilder.DropTable(
-                name: "Recruiter");
+                name: "Organizations");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
-
-            migrationBuilder.DropTable(
-                name: "Organization");
         }
     }
 }
