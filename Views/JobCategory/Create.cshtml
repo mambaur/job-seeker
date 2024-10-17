@@ -1,6 +1,6 @@
 @{
-    ViewData["Title"] = "Create Job Position";
-    ViewData["Menu"] = "JobPositions";
+    ViewData["Title"] = "Create Job Category";
+    ViewData["Menu"] = "JobCategories";
 }
 
 <div class="container-fluid">
@@ -10,19 +10,19 @@
         <div class="col-lg-4">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Create Job Position</h1>
+                <h1 class="h3 mb-0 text-gray-800">Create Job Category</h1>
             </div>
 
             <div class="card shadow p-4">
                 <p>Excepteur proident cupidatat laboris commodo.</p>
-                <form class="user" method="post" asp-controller="JobPosition" asp-action="Store">
+                <form class="user" method="post" asp-controller="JobCategory" asp-action="Store">
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" name="name" value=""
-                            placeholder="Enter Job Position Name...">
+                            placeholder="Enter Job Category Name...">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" name="description" value=""
-                            placeholder="Enter Job Position Description...">
+                            placeholder="Enter Job Category Description...">
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Submit
