@@ -1,4 +1,5 @@
 
+
 using System.Data;
 using Dapper;
 using JobSeeker.Models;
@@ -7,26 +8,26 @@ using MySql.Data.MySqlClient;
 
 namespace JobSeeker.Repositories
 {
-    public class RecruiterRepository
+    public class SeekerRepository
     {
         private readonly string? connectionString;
 
-        public RecruiterRepository()
+        public SeekerRepository()
         {
             var configuration = ConfigurationHelper.GetConfiguration();
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public IEnumerable<User> GetAllRecruiters()
+        public IEnumerable<User> GetAllSeekers()
         {
             using IDbConnection  db = new MySqlConnection(connectionString);
-            return db.Query<User>("SELECT * FROM Users WHERE UserRoleId='2'");
+            return db.Query<User>("SELECT * FROM Users WHERE UserRoleId='3'");
         }
 
         public void Store(User user)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            var sql = "INSERT INTO Users (UserRoleId, Name, Email, Username, Password, ImageUrl) VALUES ('2', @Name, @Email, @Username, '123456', @ImageUrl)";
+            var sql = "INSERT INTO Users (UserRoleId, Name, Email, Username, Password, ImageUrl) VALUES ('3', @Name, @Email, @Username, '123456', @ImageUrl)";
             db.Execute(sql, user);
         }
 
@@ -38,13 +39,13 @@ namespace JobSeeker.Repositories
             return result > 0;
         }
 
-        public User? GetRecruiterById(int Id)
+        public User? GetSeekerById(int Id)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
             return db.Query<User>($"SELECT * FROM Users WHERE Id = '{Id}'").FirstOrDefault();
         }
 
-        public bool DeleteRecruiterById(int OrganizationId)
+        public bool DeleteSeekerById(int OrganizationId)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
             int rowsAffected = db.Execute("DELETE FROM Users WHERE Id = @Id", new { Id = OrganizationId });

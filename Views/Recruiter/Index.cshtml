@@ -26,7 +26,8 @@
                             <th>Salary</th>
                         </tr>
                     </thead>
-                    @foreach (var Item in Model)
+                    <tbody>
+                        @foreach (var Item in Model)
                         {
                             <tr>
                                 <td style="width: 10%">@if(Item.ImageUrl != null){<img style="width: 60px; height: 60px; object-fit:cover;" class="rounded" src="/storage/@Item.ImageUrl" />}</td>
@@ -41,6 +42,7 @@
                                 </td>
                             </tr>
                         }
+                    </tbody>
                 </table>
             </div>
         </div>
