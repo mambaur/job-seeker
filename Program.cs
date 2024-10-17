@@ -20,6 +20,11 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// Tambahkan IHttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+// Tambahkan konfigurasi untuk session
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
