@@ -3,6 +3,8 @@
     ViewData["Menu"] = "Organizations";
 }
 
+@model IEnumerable<JobSeeker.Models.Organization>
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Organizations</h1>
@@ -11,40 +13,37 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a asp-controller="Applicant" asp-action="Create" class="btn btn-primary">Create</a>
+            <a asp-controller="Organization" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>ID</th>
+                            <th>Image</th>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Description</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
+                        @foreach (var Item in Model)
+                        {
+                            <tr>
+                                <td style="width: 10%">@Item.Id</td>
+                                <td style="width: 10%">@if(Item.ImageUrl != null){<img style="width: 60px; height: 60px; object-fit:cover;" class="rounded" src="/storage/@Item.ImageUrl" />}</td>
+                                <td>@Item.Name</td>
+                                <td>@Item.Description</td>
+                                <td style="width: 15%">
+                                    <a class="btn btn-primary mr-1" asp-controller="Organization"
+                                        asp-route-id="@Item.Id" asp-action="Edit"><i class="far fa-edit"></i>
+                                        Edit</a>
+                                    <a class="btn btn-outline-danger" asp-controller="Organization" asp-action="Delete" asp-route-id="@Item.Id"><i class="far fa-trash-alt"></i>
+                                        Delete</a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

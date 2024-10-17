@@ -1,8 +1,14 @@
 using JobSeeker.Data;
 using JobSeeker.Middleware;
+using JobSeeker.Services.FileStorageService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Menambahkan layanan untuk IFileStorageService
+var storagePath = Path.Combine(builder.Environment.WebRootPath, "storage");
+builder.Services.AddSingleton<IFileStorageService>(provider =>
+    new LocalFileStorageService(storagePath));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
