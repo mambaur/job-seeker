@@ -25,7 +25,7 @@ namespace JobSeeker.Repositories
         public void RegisterUser(User user)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            var sql = "INSERT INTO Users (Username, Name, Password, Email) VALUES (@Username, @Name, @Password, @Email)";
+            var sql = "INSERT INTO Users (Username, Name, Password, Email, UserRoleId) VALUES (@Username, @Name, @Password, @Email, '1')";
             db.Execute(sql, user);
         }
 

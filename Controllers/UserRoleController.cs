@@ -1,23 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace JobSeeker.Controllers
 {
-    public class ApplicantController : Controller
+    public class UserRoleController : Controller
     {
+        private readonly ILogger<UserRoleController> _logger;
 
-        private readonly ILogger<ApplicantController> _logger;
-
-        public ApplicantController(ILogger<ApplicantController> logger)
+        public UserRoleController(ILogger<UserRoleController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Create()
         {
             return View();
         }

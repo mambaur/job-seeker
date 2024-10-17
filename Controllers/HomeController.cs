@@ -1,14 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using JobSeeker.Models;
-using JobSeeker.Repositories;
 
 namespace JobSeeker.Controllers;
 
 public class HomeController : Controller
 {
-
-    private AuthRepository authRepository = new AuthRepository();
 
     private readonly ILogger<HomeController> _logger;
 
@@ -19,16 +16,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (HttpContext.Session.TryGetValue("Username", out _))
-        {
-            var existingUser = authRepository.GetUserByUsername(HttpContext.Session.GetString("Username") ?? "");
-            if (existingUser != null)
-            {
-                return View(existingUser);
-            }
-        }
-
-        return RedirectToAction("Login");
+        return View();
     }
 
     public IActionResult Privacy()
