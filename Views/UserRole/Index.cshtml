@@ -1,51 +1,47 @@
 @{
-    ViewData["Title"] = "UserRoles";
+    ViewData["Title"] = "User Roles";
     ViewData["Menu"] = "UserRoles";
 }
+
+@model IEnumerable<JobSeeker.Models.UserRole>
 
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">User Roles</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below..</p>
+    <p class="mb-4">Labore nulla ad ad ex magna aute dolor ex.</p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a asp-controller="Applicant" asp-action="Create" class="btn btn-primary">Create</a>
+            <a asp-controller="UserRole" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i>
+                Create</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
+                        @foreach (var Role in Model)
+                        {
+                            <tr>
+                                <td style="width: 10%">@Role.Id</td>
+                                <td>@Role.Name</td>
+                                <td style="width: 15%">
+                                    <a class="btn btn-primary mr-1" asp-controller="UserRole"
+                                        asp-route-id="@Role.Id" asp-action="Edit"><i class="far fa-edit"></i>
+                                        Edit</a>
+                                    <a class="btn btn-outline-danger" asp-controller="UserRole" asp-action="Delete" asp-route-id="@Role.Id"><i class="far fa-trash-alt"></i>
+                                        Delete</a>
+                                </td>
+                            </tr>
+                        }
                     </tfoot>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
         </div>

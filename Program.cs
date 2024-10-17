@@ -40,6 +40,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
+app.UseHttpMethodOverride();
 
 // Custom Middleware
 app.UseMiddleware<AuthenticationMiddleware>();
