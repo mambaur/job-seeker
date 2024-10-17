@@ -1,0 +1,117 @@
+@model Job;
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Menu"] = "Jobs";
+}
+
+
+<div class="container-fluid">
+
+    <div class="row d-flex justify-content-center">
+
+        <div class="col-lg-4 mb-4">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Edit Recruiter</h1>
+            </div>
+            <div class="card shadow p-4">
+                <p>Excepteur proident cupidatat laboris commodo.</p>
+                <form class="user" method="post" asp-route-id="@Model.Id" asp-controller="Job" asp-action="Update" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user" name="Title" value="@Model.Title"
+                            placeholder="Enter Job Title...">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="Description" class="form-control form-control-user" placeholder="Description">@Model.Description</textarea>
+                    </div>
+                    <div class="form-group px-2">
+                        @if(Model.ImageUrl != null) {
+                            <img style="width: 60px; height: 60px; object-fit:cover;" class="rounded" src="/storage/@Model.ImageUrl" />
+                        }
+                        <div>Cover</div>
+                        <input type="file" name="ImageFile" class="form-control-user mx-0 px-1 py-1">
+                    </div>
+                    <hr>
+
+                    <div class="form-group">
+                        <div>Published At</div>
+                        <input type="date" class="form-control" value="@Model.PublishedAt?.ToString("yyyy-MM-dd")" name="PublishedAt">
+                    </div>
+                    <div class="form-group">
+                        <div>Start Date</div>
+                        <input type="date" class="form-control" value="@Model.StartDate?.ToString("yyyy-MM-dd")" name="StartDate">
+                    </div>
+                    <div class="form-group mb-3">
+                        <div>End Date</div>
+                        <input type="date" class="form-control" value="@Model.EndDate?.ToString("yyyy-MM-dd")" name="EndDate">
+                    </div>
+                    <hr>
+
+                    <div class="form-group">
+                        <div>Job Category</div>
+                        <select name="JobCategoryId" class="form-control form-control-user">
+                            @foreach(var Item in ViewBag.JobCategories){
+                                @if(Item.Id == Model.JobCategoryId){
+                                    <option value="@Item.Id" selected>@Item.Name</option>
+                                }else{
+                                    <option value="@Item.Id">@Item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div>Job Position</div>
+                        <select name="JobPositionId" class="form-control form-control-user">
+                            @foreach(var Item in ViewBag.JobPositions){
+                                @if(Item.Id == Model.JobPositionId){
+                                    <option value="@Item.Id" selected>@Item.Name</option>
+                                }else{
+                                    <option value="@Item.Id">@Item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div>Recruiter</div>
+                        <select name="RecruiterId" class="form-control form-control-user">
+                            @foreach(var Item in ViewBag.Recruiters){
+                                @if(Item.Id == Model.RecruiterId){
+                                    <option value="@Item.Id" selected>@Item.Name</option>
+                                }else{
+                                    <option value="@Item.Id">@Item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div>Organization</div>
+                        <select name="OrganizationId" class="form-control form-control-user">
+                            @foreach(var Item in ViewBag.Organizations){
+                                @if(Item.Id == Model.OrganizationId){
+                                    <option value="@Item.Id" selected>@Item.Name</option>
+                                }else{
+                                    <option value="@Item.Id">@Item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div>Status</div>
+                        <select name="status" class="form-control form-control-user">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Submit
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

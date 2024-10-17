@@ -34,6 +34,13 @@
     </li>
 
     <!-- Nav Item - Seekers -->
+    <li class="nav-item @(ViewData["Menu"]?.ToString() == "Jobs" ? "active" : "")">
+        <a class="nav-link" asp-controller="Job" asp-action="Index">
+            <i class="fas fa-fw fa-briefcase"></i>
+            <span>Jobs</span></a>
+    </li>
+
+    <!-- Nav Item - Seekers -->
     <li class="nav-item @(ViewData["Menu"]?.ToString() == "Seekers" ? "active" : "")">
         <a class="nav-link" asp-controller="Seeker" asp-action="Index">
             <i class="fas fa-fw fa-users"></i>

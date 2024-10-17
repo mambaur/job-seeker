@@ -1,28 +1,28 @@
 @{
-    ViewData["Title"] = "Seekers";
-    ViewData["Menu"] = "Seekers";
+    ViewData["Title"] = "Jobs";
+    ViewData["Menu"] = "Jobs";
 }
 
-@model IEnumerable<JobSeeker.Models.User>
+@model IEnumerable<JobSeeker.Models.Job>
 
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Seekers</h1>
+    <h1 class="h3 mb-2 text-gray-800">Jobs</h1>
     <p class="mb-4">Lorem ipsum dolor sit amet</p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a asp-controller="Seeker" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+            <a asp-controller="Job" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Photo</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>Cover</th>
+                            <th>Title</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -31,13 +31,13 @@
                         {
                             <tr>
                                 <td style="width: 10%">@if(Item.ImageUrl != null){<img style="width: 60px; height: 60px; object-fit:cover;" class="rounded" src="/storage/@Item.ImageUrl" />}</td>
-                                <td>@Item.Name</td>
-                                <td>@Item.Email</td>
+                                <td>@Item.Title</td>
+                                <td>@Item.Status</td>
                                 <td style="width: 15%">
-                                    <a class="btn btn-primary mr-1" asp-controller="Seeker"
+                                    <a class="btn btn-primary mr-1" asp-controller="Job"
                                         asp-route-id="@Item.Id" asp-action="Edit"><i class="far fa-edit"></i>
                                         Edit</a>
-                                    <a class="btn btn-outline-danger" asp-controller="Seeker" asp-action="Delete" asp-route-id="@Item.Id"><i class="far fa-trash-alt"></i>
+                                    <a class="btn btn-outline-danger" asp-controller="Job" asp-action="Delete" asp-route-id="@Item.Id"><i class="far fa-trash-alt"></i>
                                         Delete</a>
                                 </td>
                             </tr>

@@ -45,10 +45,10 @@ namespace JobSeeker.Repositories
             return db.Query<User>($"SELECT * FROM Users WHERE Id = '{Id}'").FirstOrDefault();
         }
 
-        public bool DeleteSeekerById(int OrganizationId)
+        public bool DeleteSeekerById(int SeekerId)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            int rowsAffected = db.Execute("DELETE FROM Users WHERE Id = @Id", new { Id = OrganizationId });
+            int rowsAffected = db.Execute("DELETE FROM Users WHERE Id = @Id", new { Id = SeekerId });
             return rowsAffected > 0;
         }
     }

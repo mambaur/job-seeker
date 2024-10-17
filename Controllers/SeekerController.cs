@@ -28,6 +28,7 @@ namespace JobSeeker.Controllers
             var Seekers = seekerRepository.GetAllSeekers();
             return View(Seekers);
         }
+        
         [HttpGet]
         public IActionResult Create()
         {
