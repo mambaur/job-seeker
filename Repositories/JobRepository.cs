@@ -19,17 +19,10 @@ namespace JobSeeker.Repositories
             var configuration = ConfigurationHelper.GetConfiguration();
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-
-        // public IEnumerable<Job> GetAllJobs()
-        // {
-        //     using IDbConnection  db = new MySqlConnection(connectionString);
-        //     return db.Query<Job>("SELECT * FROM Jobs");
-        // }
-
-        public IEnumerable<Job> GetAllJobs()
+        public IEnumerable<Job> GetAllJobs(string? q)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            var sql = @"
+            var sql = $@"
                 SELECT j.Id, j.Title, j.Description, j.Status, j.ImageUrl,
                         o.Id, o.Name, o.ImageUrl,
                         jc.Id, jc.Name,
@@ -38,6 +31,7 @@ namespace JobSeeker.Repositories
                 INNER JOIN Organizations o ON o.Id = j.OrganizationId
                 INNER JOIN JobCategories jc ON jc.Id = j.JobCategoryId
                 INNER JOIN Users u ON u.Id = j.RecruiterId
+                WHERE j.Title LIKE '%{q}%'
             ";
             return db.Query<Job, Organization, JobCategory, User, Job>(sql, (job, organization, jobCategory, user) =>
             {
@@ -46,6 +40,14 @@ namespace JobSeeker.Repositories
                 job.Recruiter = user;
                 return job;
             }, splitOn: "Id, Id, Id").ToList();
+        }
+
+        public int GetTotalJobs()
+        {
+            var sql = "SELECT COUNT(*) FROM Jobs";
+
+            using IDbConnection db = new MySqlConnection(connectionString);
+            return db.ExecuteScalar<int>(sql);
         }
 
         public void Store(Job job)

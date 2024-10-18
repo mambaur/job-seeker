@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using JobSeeker.Models;
+using JobSeeker.Repositories;
 
 namespace JobSeeker.Controllers;
 
@@ -16,6 +17,18 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ApplicantRepository applicantRepository = new ApplicantRepository();
+        ViewBag.TotalApplicant = applicantRepository.GetTotalApplicants();
+
+        JobRepository jobRepository = new JobRepository();
+        ViewBag.TotalJob = jobRepository.GetTotalJobs();
+
+        SeekerRepository seekerRepository = new SeekerRepository();
+        ViewBag.TotalSeeker = seekerRepository.GetTotalSeekers();
+
+        RecruiterRepository recruiterRepository = new RecruiterRepository();
+        ViewBag.TotalRecruiter = recruiterRepository.GetTotalRecruiters();
+
         return View();
     }
 

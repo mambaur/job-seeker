@@ -19,8 +19,16 @@ namespace JobSeeker.Repositories
 
         public IEnumerable<User> GetAllRecruiters()
         {
-            using IDbConnection  db = new MySqlConnection(connectionString);
+            using IDbConnection db = new MySqlConnection(connectionString);
             return db.Query<User>("SELECT * FROM Users WHERE UserRoleId='2'");
+        }
+
+        public int GetTotalRecruiters()
+        {
+            var sql = "SELECT COUNT(*) FROM Users WHERE UserRoleId = '2'";
+
+            using IDbConnection db = new MySqlConnection(connectionString);
+            return db.ExecuteScalar<int>(sql);
         }
 
         public void Store(User user)

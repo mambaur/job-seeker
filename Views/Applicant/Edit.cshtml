@@ -63,6 +63,33 @@
                                 <option value="active">Active</option>
                             }
 
+                            @if (Model.Status == "process")
+                            {
+                                <option value="process" selected>Process</option>
+                            }
+                            else
+                            {
+                                <option value="process">Process</option>
+                            }
+
+                            @if (Model.Status == "interview")
+                            {
+                                <option value="interview" selected>Interview</option>
+                            }
+                            else
+                            {
+                                <option value="interview">Interview</option>
+                            }
+
+                            @if (Model.Status == "completed")
+                            {
+                                <option value="completed" selected>Completed</option>
+                            }
+                            else
+                            {
+                                <option value="completed">Completed</option>
+                            }
+
                             @if (Model.Status == "inactive")
                             {
                                 <option value="inactive" selected>Inactive</option>

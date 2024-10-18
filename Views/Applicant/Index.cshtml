@@ -14,7 +14,37 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a asp-controller="Applicant" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <a asp-controller="Applicant" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search shadow" asp-controller="Applicant" asp-action="Index" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" name="q" value="@ViewBag.q">
+                            <input type="hidden" name="status" value="@ViewBag.status">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 text-right">
+                    @if(ViewBag.status == null){<a asp-controller="Applicant" asp-action="Index"  asp-route-q="@ViewBag.q" class='btn btn-primary'>All</a>}else{<a asp-controller="Applicant" asp-action="Index" asp-route-q="@ViewBag.q" class='btn btn-outline-primary'>All</a>}
+
+                    @if(ViewBag.status == "active"){<a asp-controller="Applicant" asp-action="Index" asp-route-q="@ViewBag.q" asp-route-status="active" class='btn btn-primary'>Active</a>}else{<a asp-controller="Applicant" asp-action="Index" class='btn btn-outline-primary' asp-route-status="active" asp-route-q="@ViewBag.q">Active</a>}
+
+                    @if(ViewBag.status == "process"){<a asp-controller="Applicant" asp-action="Index" asp-route-q="@ViewBag.q" asp-route-status="process" class='btn btn-primary'>Process</a>}else{<a asp-controller="Applicant" asp-action="Index" class='btn btn-outline-primary' asp-route-status="process" asp-route-q="@ViewBag.q">Process</a>}
+                    
+                    @if(ViewBag.status == "interview"){<a asp-controller="Applicant" asp-action="Index" asp-route-q="@ViewBag.q" asp-route-status="interview" class='btn btn-primary'>Interview</a>}else{<a asp-controller="Applicant" asp-action="Index" class='btn btn-outline-primary' asp-route-status="interview" asp-route-q="@ViewBag.q">Interview</a>}
+                    
+                    @if(ViewBag.status == "completed"){<a asp-controller="Applicant" asp-action="Index" asp-route-q="@ViewBag.q" asp-route-status="completed" class='btn btn-primary'>Completed</a>}else{<a asp-controller="Applicant" asp-action="Index" class='btn btn-outline-primary' asp-route-status="completed" asp-route-q="@ViewBag.q">Completed</a>}
+
+                    @if(ViewBag.status == "inactive"){<a asp-controller="Applicant" asp-action="Index" asp-route-q="@ViewBag.q" asp-route-status="inactive" class='btn btn-primary'>Inactive</a>}else{<a asp-controller="Applicant" asp-action="Index" class='btn btn-outline-primary' asp-route-status="inactive" asp-route-q="@ViewBag.q">Inactive</a>}
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">

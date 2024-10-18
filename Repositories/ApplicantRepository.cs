@@ -16,30 +16,36 @@ namespace JobSeeker.Repositories
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        // public IEnumerable<Applicant> GetAllApplicants()
-        // {
-        //     using IDbConnection db = new MySqlConnection(connectionString);
-        //     return db.Query<Applicant>("SELECT * FROM Applicants");
-        // }
-
-        public IEnumerable<Applicant> GetAllApplicants()
+        public IEnumerable<Applicant> GetAllApplicants(string? q, string? status)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
 
-            var sql = @"
+            string statusFilter = status != null ? $"AND a.Status = '{status}'" : "";
+
+            var sql = $@"
                 SELECT a.Id, a.Status, a.AppliedAt,
                         u.Id, u.Name, u.ImageUrl,
                         j.Id, j.Title
                 FROM Applicants a
                 INNER JOIN Users u ON u.Id = a.UserId
                 INNER JOIN Jobs j ON j.Id = a.JobId
+                WHERE u.Name LIKE '%{q}%' {statusFilter}
             ";
+
             return db.Query<Applicant, User, Job, Applicant>(sql, (applicant, user, job) =>
             {
                 applicant.User = user;
                 applicant.Job = job;
                 return applicant;
             }, splitOn: "Id, Id").ToList();
+        }
+
+        public int GetTotalApplicants()
+        {
+            var sql = "SELECT COUNT(*) FROM Applicants";
+
+            using IDbConnection db = new MySqlConnection(connectionString);
+            return db.ExecuteScalar<int>(sql);
         }
 
         public void Store(Applicant applicant)

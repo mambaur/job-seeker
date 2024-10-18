@@ -18,9 +18,11 @@ namespace JobSeeker.Controllers
             _fileStorageService = fileStorageService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? q, string? status)
         {
-            var Applicants = applicantRepository.GetAllApplicants();
+            var Applicants = applicantRepository.GetAllApplicants(q, status);
+            ViewBag.q = q;
+            ViewBag.status = status;
             return View(Applicants);
         }
 
@@ -31,7 +33,7 @@ namespace JobSeeker.Controllers
             ViewBag.Seekers = seekerRepository.GetAllSeekers();
 
             JobRepository jobRepository = new();
-            ViewBag.Jobs = jobRepository.GetAllJobs();
+            ViewBag.Jobs = jobRepository.GetAllJobs(null);
 
             return View();
         }
@@ -55,7 +57,7 @@ namespace JobSeeker.Controllers
             ViewBag.Seekers = seekerRepository.GetAllSeekers();
 
             JobRepository jobRepository = new();
-            ViewBag.Jobs = jobRepository.GetAllJobs();
+            ViewBag.Jobs = jobRepository.GetAllJobs(null);
 
             return View(Applicant);
         }

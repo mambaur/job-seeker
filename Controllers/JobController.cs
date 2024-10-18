@@ -18,9 +18,10 @@ namespace JobSeeker.Controllers
             _fileStorageService = fileStorageService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? q)
         {
-            var Jobs = jobRepository.GetAllJobs();
+            var Jobs = jobRepository.GetAllJobs(q);
+            ViewBag.q = q;
             return View(Jobs);
         }
 
@@ -74,7 +75,7 @@ namespace JobSeeker.Controllers
 
             OrganizationRepository organizationRepository = new OrganizationRepository();
             ViewBag.Organizations = organizationRepository.GetAllOrganizations();
-            
+
             return View(Job);
         }
 
