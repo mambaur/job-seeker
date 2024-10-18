@@ -32,7 +32,7 @@ namespace JobSeeker.Repositories
         public User? AuthenticateUser(string username, string password)
         {
             using IDbConnection db = new MySqlConnection(connectionString);
-            return db.Query<User>($"SELECT * FROM Users WHERE Username = '{username}' AND Password = '{password}'",
+            return db.Query<User>($"SELECT * FROM Users WHERE Username = '{username}' AND Password = '{password}' AND UserRoleId = '1'",
                 new { Username = username, Password = password }).FirstOrDefault();
         }
 

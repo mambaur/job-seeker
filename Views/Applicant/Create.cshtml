@@ -1,38 +1,48 @@
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Applicant";
     ViewData["Menu"] = "Applicants";
 }
 
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Create New Applicant</h1>
-    </div>
-
-
-    <div class="row">
+    <div class="row d-flex justify-content-center">
 
         <div class="col-lg-4">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Create Applicants</h1>
+            </div>
+
             <div class="card shadow p-4">
-                <p>Excepteur proident cupidatat laboris commodo. Nulla magna magna non culpa laborum mollit officia
-                    adipisicing occaecat sit amet culpa.</p>
-                <form class="user" method="post" asp-controller="Profile" asp-action="Update">
-                    <input type="hidden" name="id" value="@Model.Id">
+                <p>Excepteur proident cupidatat laboris commodo.</p>
+                <form class="user" method="post" asp-controller="Applicant" asp-action="Store">
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" name="name"
-                            value="@Model.Name" placeholder="Enter Name...">
+                        <div>Seeker</div>
+                        <select name="UserId" class="form-control">
+                            @foreach (var Item in ViewBag.Seekers)
+                            {
+                                <option value="@Item.Id">@Item.Name</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" name="username"
-                            value="@Model.Username" placeholder="Enter Username..." readonly>
+                        <div>Job</div>
+                        <select name="JobId" class="form-control">
+                            @foreach (var Item in ViewBag.Jobs)
+                            {
+                                <option value="@Item.Id">@Item.Title</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" name="email"
-                            value="@Model.Email" placeholder="Enter Email...">
+                        <div>Status</div>
+                        <select name="status" class="form-control">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                        Update
+                        Submit
                     </button>
                 </form>
             </div>

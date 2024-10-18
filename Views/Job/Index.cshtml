@@ -22,6 +22,9 @@
                         <tr>
                             <th>Cover</th>
                             <th>Title</th>
+                            <th>Category</th>
+                            <th>Organization</th>
+                            <th>Recruiter</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -30,8 +33,11 @@
                         @foreach (var Item in Model)
                         {
                             <tr>
-                                <td style="width: 10%">@if(Item.ImageUrl != null){<img style="width: 60px; height: 60px; object-fit:cover;" class="rounded" src="/storage/@Item.ImageUrl" />}</td>
+                                <td style="width: 10%">@if(Item.ImageUrl != null){<img style="width: 100px; height: 60px; object-fit:cover;" class="rounded" src="/storage/@Item.ImageUrl" />}</td>
                                 <td>@Item.Title</td>
+                                <td>@Item.JobCategory?.Name</td>
+                                <td>@if(Item.Organization?.ImageUrl != null){<img style="width: 40px; height: 40px; object-fit:cover;" class="rounded-circle" src="/storage/@Item.Organization?.ImageUrl" />}  @Item.Organization?.Name</td>
+                                <td style="width: 10%">@if(Item.Recruiter?.ImageUrl != null){<img style="width: 40px; height: 40px; object-fit:cover;" class="rounded-circle" src="/storage/@Item.Recruiter?.ImageUrl" />} @Item.Recruiter?.Name</td>
                                 <td>@Item.Status</td>
                                 <td style="width: 15%">
                                     <a class="btn btn-primary mr-1" asp-controller="Job"

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSeeker.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241017132731_InitialCreate")]
+    [Migration("20241018002328_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -282,6 +282,9 @@ namespace JobSeeker.Migrations
 
                     b.Property<DateTime?>("EmailVerifiedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -47,6 +47,8 @@ namespace JobSeeker.Models
 
         public Organization? Organization { get; set; }
 
+        public User? Recruiter { get; set; }
+
         public ICollection<Applicant>? Applicants { get; set; }
     }
 }

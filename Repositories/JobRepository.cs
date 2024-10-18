@@ -20,10 +20,32 @@ namespace JobSeeker.Repositories
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
+        // public IEnumerable<Job> GetAllJobs()
+        // {
+        //     using IDbConnection  db = new MySqlConnection(connectionString);
+        //     return db.Query<Job>("SELECT * FROM Jobs");
+        // }
+
         public IEnumerable<Job> GetAllJobs()
         {
-            using IDbConnection  db = new MySqlConnection(connectionString);
-            return db.Query<Job>("SELECT * FROM Jobs");
+            using IDbConnection db = new MySqlConnection(connectionString);
+            var sql = @"
+                SELECT j.Id, j.Title, j.Description, j.Status, j.ImageUrl,
+                        o.Id, o.Name, o.ImageUrl,
+                        jc.Id, jc.Name,
+                        u.Id, u.Name, u.ImageUrl
+                FROM Jobs j
+                INNER JOIN Organizations o ON o.Id = j.OrganizationId
+                INNER JOIN JobCategories jc ON jc.Id = j.JobCategoryId
+                INNER JOIN Users u ON u.Id = j.RecruiterId
+            ";
+            return db.Query<Job, Organization, JobCategory, User, Job>(sql, (job, organization, jobCategory, user) =>
+            {
+                job.Organization = organization;
+                job.JobCategory = jobCategory;
+                job.Recruiter = user;
+                return job;
+            }, splitOn: "Id, Id, Id").ToList();
         }
 
         public void Store(Job job)

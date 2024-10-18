@@ -1,0 +1,85 @@
+@model Applicant;
+
+@{
+    ViewData["Title"] = "Edit Applicant";
+    ViewData["Menu"] = "Applicants";
+}
+
+<div class="container-fluid">
+
+    <div class="row d-flex justify-content-center">
+
+        <div class="col-lg-4">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Edit Applicants</h1>
+            </div>
+
+            <div class="card shadow p-4">
+                <p>Excepteur proident cupidatat laboris commodo.</p>
+                <form class="user" method="post" asp-controller="Applicant" asp-action="Update"
+                    asp-route-id="@Model.Id">
+                    <div class="form-group">
+                        <div>Seeker</div>
+                        <select name="UserId" class="form-control">
+                            @foreach (var Item in ViewBag.Seekers)
+                            {
+                                @if (Item.Id == Model.UserId)
+                                {
+                                    <option value="@Item.Id" selected>@Item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@Item.Id">@Item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div>Job</div>
+                        <select name="JobId" class="form-control">
+                            @foreach (var Item in ViewBag.Jobs)
+                            {
+                                @if (Item.Id == Model.JobId)
+                                {
+                                    <option value="@Item.Id" selected>@Item.Title</option>
+                                }
+                                else
+                                {
+                                    <option value="@Item.Id">@Item.Title</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div>Status</div>
+                        <select name="status" class="form-control">
+                            @if (Model.Status == "active")
+                            {
+                                <option value="active" selected>Active</option>
+                            }
+                            else
+                            {
+                                <option value="active">Active</option>
+                            }
+
+                            @if (Model.Status == "inactive")
+                            {
+                                <option value="inactive" selected>Inactive</option>
+                            }
+                            else
+                            {
+                                <option value="inactive">Inactive</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Submit
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
